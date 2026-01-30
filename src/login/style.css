@@ -1,0 +1,200 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* REMOVE SCROLL */
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background: url("nyak.webp");
+    background-size: cover;
+    background-position: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+/* NAVBAR */
+.navbar {
+    padding: 25px 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu a {
+    margin-right: 40px;
+    text-decoration: none;
+    color: #eee;
+    font-weight: 500;
+}
+
+.search {
+    border: 1px solid rgba(255,255,255,.4);
+    padding: 8px 15px;
+    border-radius: 30px;
+}
+
+.search input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    width: 150px;
+}
+
+/* GLASS CARD */
+.glass {
+    width: 85%;
+    height: 70vh;
+    margin: auto;
+    display: flex;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(25px);
+    box-shadow: 0 0 40px rgba(0,0,0,.5);
+    overflow: hidden;
+}
+
+/* LEFT PANEL */
+.left {
+    flex: 1;
+    padding: 70px;
+    background: linear-gradient(
+        rgba(0,0,0,.4),
+        rgba(0,0,0,.4)
+    );
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 22px;
+    margin-bottom: 60px;
+}
+
+.left h1 {
+    font-size: 55px;
+}
+
+.left h2 {
+    margin-bottom: 25px;
+    font-weight: 400;
+}
+
+.left p {
+    width: 80%;
+    line-height: 1.6;
+    color: #ddd;
+}
+
+.social {
+    margin-top: 50px;
+}
+
+.social i {
+    margin-right: 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* RIGHT PANEL */
+.right {
+    width: 400px;
+    padding: 70px 50px;
+    background: rgba(0,0,0,.35);
+}
+
+.right h2 {
+    font-size: 28px;
+    margin-bottom: 50px;
+}
+
+/* INPUTS FIXED */
+.input {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.input input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255,255,255,.6);
+    padding: 12px 35px 12px 5px;
+    color: white;
+    outline: none;
+    font-size: 15px;
+}
+
+.input label {
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #ccc;
+    pointer-events: none;
+    transition: 0.3s ease;
+}
+
+.input input:focus + label,
+.input input:not(:placeholder-shown) + label {
+    top: -10px;
+    font-size: 12px;
+    color: #ff4f81;
+}
+
+.input i {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+    color: #eee;
+}
+
+/* OPTIONS */
+.options {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 35px;
+}
+
+.options a {
+    color: #ddd;
+    text-decoration: none;
+}
+
+/* BUTTON */
+button {
+    width: 100%;
+    padding: 13px;
+    border-radius: 5px;
+    border: none;
+    background: #ff2f6d;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+/* REGISTER */
+.register {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+}
+
+.register span {
+    color: #ff4f81;
+    cursor: pointer;
+}

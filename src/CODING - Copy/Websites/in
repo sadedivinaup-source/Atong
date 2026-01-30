@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bro's Coffee</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class = "navbar">
+        <div class = "logo">
+            <div>☕ Bro's Coffee</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href=" ">Home</a></li>
+                <li><a href=" ">Menu</a></li>
+                <li><a href=" ">About</a></li>
+                <li><a href=" ">Contact</a></li>
+                <li><a href=" ">Account</a></li>
+            </ul>
+        </nav>
+

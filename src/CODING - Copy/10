@@ -1,0 +1,462 @@
+import tkinter as tk
+from tkinter import ttk, messagebox
+import datetime
+import uuid
+
+# ---------- Admin credentials (simple, stored in-code) ----------
+# Default: username "team1", password "12345678"
+ADMIN_USERNAME = "team1"
+ADMIN_PASSWORD = "12345678"
+
+# ---------- Data helpers ----------
+def make_item(title, description, status, category, location, contact):
+    return {
+        "id": str(uuid.uuid4()),
+        "title": title,
+        "description": description,
+        "status": status,
+        "category": category,
+        "location": location,
+        "contact": contact,
+        "date": datetime.date.today().isoformat(),
+        "returned": False
+    }
+
+CATEGORY_CHOICES = ["Phone", "Bag", "Keys", "Wallet", "Clothing", "Other"]
+
+LOCATION_CHOICES = [
+    "CMA", "PTC", "GYM", "MBA ENG'G", "BASIC ED",
+    "CSDL ITS", "FVR", "CCJE", "NORTH HALL", "STUDENT PLAZA"
+]
+
+# ---------- UI Application ----------
+class LostFoundApp(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("TEAM 1: Project for ITE 260/366")
+        self.geometry("900x750")
+        self.configure(bg="#f5f6fa")
+        self.resizable(True, True)
+
+        self.items = self.load_data()
+        self._build_ui()
+        self.refresh_grid()
+
+    # ---------- Load/Save ----------
+    def load_data(self):
+        # Placeholder: load from file or DB if you want
+        return []
+
+    def save_data(self):
+        # Placeholder: save to file or DB if you want
+        pass
+
+    # ---------- UI Setup ----------
+    def _build_ui(self):
+        # Header
+        header = tk.Frame(self, bg="#2c3e50", height=60)
+        header.pack(fill="x")
+        header.pack_propagate(False)
+
+        title_label = tk.Label(
+            header,
+            text="TEAM 01 - Lost & Found Tracking System",
+            font=("Segoe UI", 15, "bold"),
+            fg="white",
+            bg="#2c3e50"
+        )
+        title_label.pack(side="left", padx=19)
+
+        add_btn = tk.Button(
+            header, text="+ ADD ITEM", command=self.open_add_dialog,
+            bg="#3498db", fg="white",
+            font=("Segoe UI", 10, "bold"), bd=0, relief="flat",
+            activebackground="#2980b9", cursor="hand2"
+        )
+        add_btn.pack(side="right", padx=6)
+        add_btn.config(width=10, height=1)
+
+        logout_btn = tk.Button(
+            header, text="LOGOUT", command=self.logout,
+            bg="#e67e22", fg="white",
+            font=("Segoe UI", 9, "bold"), bd=0, relief="flat",
+            activebackground="#d35400", cursor="hand2"
+        )
+        logout_btn.pack(side="right", padx=6)
+        logout_btn.config(width=8, height=1)
+
+        # Search Section
+        search_frame = tk.Frame(self, bg="#f5f6fa", pady=8)
+        search_frame.pack(fill="x", padx=14)
+
+        self.search_var = tk.StringVar()
+        search_entry = ttk.Entry(search_frame, textvariable=self.search_var)
+        search_entry.pack(side="left", fill="x", expand=True, ipady=3)
+        search_entry.bind("<Return>", lambda e: self.refresh_grid())
+        ttk.Button(search_frame, text="Search", command=self.refresh_grid).pack(side="left", padx=6)
+
+        # Filters
+        filter_frame = tk.Frame(self, bg="#f5f6fa")
+        filter_frame.pack(fill="x", padx=14, pady=4)
+
+        ttk.Label(filter_frame, text="Category:").pack(side="left")
+        self.cat_var = tk.StringVar(value="All")
+        categories = ["All"] + CATEGORY_CHOICES
+        ttk.OptionMenu(filter_frame, self.cat_var, "All", *categories, command=lambda _: self.refresh_grid()).pack(side="left", padx=(4, 12))
+
+        ttk.Label(filter_frame, text="Status:").pack(side="left")
+        self.status_filter_var = tk.StringVar(value="All")
+        statuses = ["All", "Lost", "Found"]
+        ttk.OptionMenu(filter_frame, self.status_filter_var, "All", *statuses, command=lambda _: self.refresh_grid()).pack(side="left")
+
+        # Scrollable List
+        canvas_frame = tk.Frame(self, bg="#f5f6fa")
+        canvas_frame.pack(fill="both", expand=True, padx=12, pady=6)
+
+        self.canvas = tk.Canvas(canvas_frame, bg="#f5f6fa", bd=0, highlightthickness=0)
+        self.scrollbar = ttk.Scrollbar(canvas_frame, orient="vertical", command=self.canvas.yview)
+        self.canvas.configure(yscrollcommand=self.scrollbar.set)
+
+        self.scrollbar.pack(side="right", fill="y")
+        self.canvas.pack(side="left", fill="both", expand=True)
+
+        self.cards_container = tk.Frame(self.canvas, bg="#f5f6fa")
+        self.canvas.create_window((0, 0), window=self.cards_container, anchor="nw")
+        self.cards_container.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
+
+        self.filtered_items = []
+
+    # ---------- Refresh ----------
+    def refresh_grid(self):
+        for child in self.cards_container.winfo_children():
+            child.destroy()
+
+        q = self.search_var.get().strip().lower()
+        cat = self.cat_var.get()
+        status_filter = self.status_filter_var.get()
+
+        def matches(it):
+            if cat != "All" and it["category"] != cat:
+                return False
+            if status_filter != "All" and it["status"] != status_filter:
+                return False
+            if q:
+                hay = " ".join([str(it.get(k, "")) for k in ("title", "description", "location", "contact", "category", "status")]).lower()
+                if q not in hay:
+                    return False
+            return True
+
+        self.filtered_items = [it for it in self.items if matches(it)]
+
+        for it in self.filtered_items:
+            card = tk.Frame(self.cards_container, bg="white", relief="flat", highlightbackground="#dcdde1", highlightthickness=1)
+            card.pack(fill="x", pady=6, padx=2, ipadx=6, ipady=6)
+
+            title_text = it["title"]
+            if it.get("returned"):
+                title_text += " (Returned)"
+            tk.Label(card, text=title_text, font=("Segoe UI", 10, "bold"), bg="white").pack(anchor="w")
+
+            meta = f"{it['status']} • {it['category']} • {it['date']}"
+            tk.Label(card, text=meta, font=("Segoe UI", 10), bg="white", fg="#7f8c8d").pack(anchor="w")
+
+            def on_card_click(event, item=it):
+                if messagebox.askyesno("Open Details", f"Open details for '{item['title']}'?"):
+                    self.open_detail_popup(item)
+            card.bind("<Button-1>", on_card_click)
+            for w in card.winfo_children():
+                w.bind("<Button-1>", on_card_click)
+
+    # ---------- Details Popup ----------
+    def open_detail_popup(self, item):
+        popup = tk.Toplevel(self)
+        popup.title(item["title"])
+        popup.geometry("400x400")
+        popup.configure(bg="#fefefe")
+        popup.resizable(False, False)
+
+        header = tk.Frame(popup, bg="#2c3e50", height=60)
+        header.pack(fill="x")
+        header.pack_propagate(False)
+        tk.Label(
+            header, 
+            text=item["title"], 
+            font=("Segoe UI", 14, "bold"), 
+            bg="#2c3e50", 
+            fg="white"
+        ).pack(anchor="w", padx=16, pady=10)
+
+        body = tk.Frame(popup, bg="#ffffff", padx=20, pady=15)
+        body.pack(fill="both", expand=True)
+
+        def add_row(label, value):
+            row = tk.Frame(body, bg="white")
+            row.pack(fill="x", pady=3)
+            tk.Label(row, text=f"{label}:", font=("Segoe UI", 9, "bold"), bg="white", fg="#2c3e50").pack(side="left")
+            tk.Label(row, text=value, font=("Segoe UI", 9), bg="white", fg="#34495e", wraplength=260, justify="left").pack(side="left", padx=(6, 0))
+
+        add_row("Status", item["status"])
+        add_row("Category", item["category"])
+        add_row("Location", item["location"])
+        add_row("Date", item["date"])
+        add_row("Contact No.", item["contact"])
+
+        tk.Label(body, text="Description:", font=("Segoe UI", 9, "bold"), bg="white", fg="#2c3e50").pack(anchor="w", pady=(10, 0))
+        desc = tk.Text(body, height=5, wrap="word", font=("Segoe UI", 9), bg="#f8f9fa", bd=1, relief="solid")
+        desc.insert("1.0", item["description"])
+        desc.configure(state="disabled")
+        desc.pack(fill="x", pady=4)
+
+        btn_frame = tk.Frame(body, bg="white")
+        btn_frame.pack(pady=14)
+
+        def make_btn(text, color, command):
+            return tk.Button(
+                btn_frame, text=text, font=("Segoe UI", 9, "bold"),
+                bg=color, fg="white", activebackground=color,
+                bd=0, relief="flat", padx=10, pady=4, cursor="hand2",
+                command=command
+            )
+
+        make_btn("Mark Returned", "#27ae60", lambda: [popup.destroy(), self.mark_returned(item)]).pack(side="left", padx=8)
+        make_btn("Edit", "#3498db", lambda: [popup.destroy(), self.edit_selected(item)]).pack(side="left", padx=8)
+        make_btn("Mark Claimed", "#e74c3c", lambda: [popup.destroy(), self.claim_selected(item)]).pack(side="left", padx=8)
+
+    # ---------- ACTION: ADD ----------
+    def open_add_dialog(self):
+        dialog = AddEditDialog(self, title="Add Item")
+        self.wait_window(dialog)
+        if getattr(dialog, "result", None):
+            self.items.append(dialog.result)
+            self.save_data()
+            self.refresh_grid()
+
+    # ---------- ACTION: EDIT ----------
+    def edit_selected(self, item):
+        edit_win = tk.Toplevel(self)
+        edit_win.title("Edit Item")
+        edit_win.geometry("380x520")
+        edit_win.configure(bg="#f0f2f5")
+        edit_win.resizable(False, False)
+        edit_win.grab_set()
+
+        header = tk.Frame(edit_win, bg="#2c3e50", height=60)
+        header.pack(fill="x")
+        header.pack_propagate(False)
+
+        tk.Label(
+            header, text="Edit Item", font=("Segoe UI", 14, "bold"),
+            fg="white", bg="#2c3e50"
+        ).pack(anchor="w", padx=15, pady=10)
+
+        body = tk.Frame(edit_win, bg="#f0f2f5", padx=20, pady=15)
+        body.pack(fill="both", expand=True)
+
+        # Title
+        title_frame = tk.Frame(body, bg="#f0f2f5")
+        title_frame.pack(fill="x", pady=6)
+        tk.Label(title_frame, text="Title", font=("Segoe UI", 9, "bold"), bg="#f0f2f5").pack(anchor="w")
+        title_var = tk.StringVar(value=item["title"])
+        ttk.Entry(title_frame, textvariable=title_var).pack(fill="x", pady=2, ipady=3)
+
+        # Category
+        cat_frame = tk.Frame(body, bg="#f0f2f5")
+        cat_frame.pack(fill="x", pady=6)
+        tk.Label(cat_frame, text="Category", font=("Segoe UI", 9, "bold"), bg="#f0f2f5").pack(anchor="w")
+        cat_var = tk.StringVar(value=item["category"])
+        cat_dropdown = ttk.Combobox(cat_frame, values=CATEGORY_CHOICES, textvariable=cat_var, state="readonly")
+        cat_dropdown.pack(fill="x", pady=2, ipady=3)
+
+        # Location (NOW DROPDOWN)
+        loc_frame = tk.Frame(body, bg="#f0f2f5")
+        loc_frame.pack(fill="x", pady=6)
+        tk.Label(loc_frame, text="Location", font=("Segoe UI", 9, "bold"), bg="#f0f2f5").pack(anchor="w")
+        loc_var = tk.StringVar(value=item["location"])
+        ttk.Combobox(loc_frame, values=LOCATION_CHOICES, textvariable=loc_var, state="readonly").pack(fill="x", pady=2, ipady=3)
+
+        # Contact
+        contact_frame = tk.Frame(body, bg="#f0f2f5")
+        contact_frame.pack(fill="x", pady=6)
+        tk.Label(contact_frame, text="Contact No.", font=("Segoe UI", 9, "bold"), bg="#f0f2f5").pack(anchor="w")
+        contact_var = tk.StringVar(value=item["contact"])
+        contact_entry = ttk.Entry(contact_frame, textvariable=contact_var)
+        contact_entry.pack(fill="x", pady=2, ipady=3)
+
+        # Description
+        tk.Label(body, text="Description", font=("Segoe UI", 9, "bold"), bg="#f0f2f5").pack(anchor="w")
+        desc_text = tk.Text(body, height=4, bg="white", relief="solid", bd=1)
+        desc_text.insert("1.0", item["description"])
+        desc_text.pack(fill="x", pady=6)
+
+        # Buttons
+        btn_frame = tk.Frame(body, bg="#f0f2f5")
+        btn_frame.pack(pady=15)
+
+        def save_edit():
+            item["title"] = title_var.get()
+            item["category"] = cat_var.get()
+            item["location"] = loc_var.get()
+            item["contact"] = contact_var.get()
+            item["description"] = desc_text.get("1.0", "end").strip()
+            self.refresh_grid()
+            edit_win.destroy()
+
+        tk.Button(
+            btn_frame, text="Save", command=save_edit,
+            bg="#3498db", fg="white", padx=20, pady=6,
+            bd=0, relief="flat", font=("Segoe UI", 10, "bold"),
+            cursor="hand2"
+        ).pack(side="right", padx=8)
+
+        tk.Button(
+            btn_frame, text="Cancel", command=edit_win.destroy,
+            bg="#7f8c8d", fg="white", padx=20, pady=6,
+            bd=0, relief="flat", font=("Segoe UI", 10),
+            cursor="hand2"
+        ).pack(side="right", padx=8)
+
+    # ---------- Helper Actions ----------
+    def mark_returned(self, item):
+        if item.get("returned"):
+            messagebox.showinfo("Returned", "Already marked as returned.")
+            return
+        if messagebox.askyesno("Mark as Returned", "Mark this item as returned?"):
+            item["returned"] = True
+            self.refresh_grid()
+
+    def claim_selected(self, item):
+        if messagebox.askyesno("Claim Item", f"Remove '{item['title']}' as claimed?"):
+            self.items = [x for x in self.items if x["id"] != item["id"]]
+            self.refresh_grid()
+
+    def logout(self):
+        if messagebox.askyesno("Logout", "Log out and return to login screen?"):
+            self.destroy()
+            show_login_window()
+
+# ---------- Add/Edit Dialog ----------
+class AddEditDialog(tk.Toplevel):
+    def __init__(self, parent, title="Add/Edit", item=None):
+        super().__init__(parent)
+        self.title(title)
+        self.geometry("340x500")
+        self.configure(bg="white")
+        self.transient(parent)
+        self.grab_set()
+        self.result = None
+
+        frm = ttk.Frame(self, padding=12)
+        frm.pack(fill="both", expand=True)
+
+        ttk.Label(frm, text="Title").pack(anchor="w")
+        self.title_var = tk.StringVar(value=(item.get("title") if item else ""))
+        ttk.Entry(frm, textvariable=self.title_var).pack(fill="x", pady=4)
+
+        ttk.Label(frm, text="Description").pack(anchor="w")
+        self.desc_text = tk.Text(frm, height=4)
+        if item:
+            self.desc_text.insert("1.0", item.get("description", ""))
+        self.desc_text.pack(fill="both", pady=4)
+
+        ttk.Label(frm, text="Status").pack(anchor="w")
+        self.status_var = tk.StringVar(value=(item.get("status") if item else "Lost"))
+        ttk.OptionMenu(frm, self.status_var, self.status_var.get(), "Lost", "Found").pack(fill="x", pady=4)
+
+        ttk.Label(frm, text="Category").pack(anchor="w")
+        self.cat_var = tk.StringVar(value=(item.get("category") if item else "Other"))
+        ttk.Combobox(frm, values=CATEGORY_CHOICES, textvariable=self.cat_var, state="readonly").pack(fill="x", pady=4)
+
+        # Location (NOW DROPDOWN)
+        ttk.Label(frm, text="Location").pack(anchor="w")
+        self.loc_var = tk.StringVar(value=(item.get("location") if item else LOCATION_CHOICES[0]))
+        ttk.Combobox(frm, values=LOCATION_CHOICES, textvariable=self.loc_var, state="readonly").pack(fill="x", pady=4)
+
+        ttk.Label(frm, text="Contact No.").pack(anchor="w")
+        self.contact_var = tk.StringVar(value=(item.get("contact") if item else ""))
+        contact_entry = ttk.Entry(frm, textvariable=self.contact_var)
+        contact_entry.pack(fill="x", pady=4)
+
+        def validate_contact(P):
+            return P.isdigit() and len(P) <= 11 or P == ""
+        vcmd = (self.register(validate_contact), "%P")
+        contact_entry.config(validate="key", validatecommand=vcmd)
+
+        # Buttons
+        action_frame = ttk.Frame(frm)
+        action_frame.pack(fill="x", pady=(8, 0))
+        ttk.Button(action_frame, text="Cancel", command=self.destroy).pack(side="right", padx=6)
+        ttk.Button(action_frame, text="Save", command=self.on_save).pack(side="right", padx=6)
+
+        self._editing_item = item
+
+    def on_save(self):
+        title = self.title_var.get().strip()
+        desc = self.desc_text.get("1.0", "end").strip()
+        status = self.status_var.get()
+        cat = self.cat_var.get().strip() or "Other"
+        loc = self.loc_var.get().strip()
+        contact = self.contact_var.get().strip()
+
+        if not title:
+            messagebox.showwarning("Validation", "Please enter a title.")
+            return
+        if not contact.isdigit() or len(contact) != 11:
+            messagebox.showwarning("Validation", "Contact number must be 11 digits.")
+            return
+
+        if self._editing_item:
+            merged = dict(self._editing_item)
+            merged.update(title=title, description=desc, status=status, category=cat, location=loc, contact=contact)
+            self.result = merged
+        else:
+            self.result = make_item(title, desc, status, cat, loc, contact)
+
+        self.destroy()
+
+# ---------- Login Window ----------
+class LoginWindow(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("TEAM 01")
+        self.geometry("400x250")
+        self.resizable(False, False)
+        self.configure(bg="#f8f9fa")
+
+        frm = tk.Frame(self, bg="#f8f9fa", padx=16, pady=12)
+        frm.pack(fill="both", expand=True)
+
+        tk.Label(frm, text="Admin Login", font=("Segoe UI", 14, "bold"), bg="#f8f9fa").pack(pady=(0,8))
+
+        tk.Label(frm, text="Username", bg="#f8f9fa").pack(anchor="w")
+        self.username_var = tk.StringVar()
+        ttk.Entry(frm, textvariable=self.username_var).pack(fill="x", pady=4)
+
+        tk.Label(frm, text="Password", bg="#f8f9fa").pack(anchor="w")
+        self.password_var = tk.StringVar()
+        pw_entry = ttk.Entry(frm, textvariable=self.password_var, show="*")
+        pw_entry.pack(fill="x", pady=4)
+        pw_entry.bind("<Return>", lambda e: self.attempt_login())
+
+        btn_frame = tk.Frame(frm, bg="#f8f9fa")
+        btn_frame.pack(fill="x", pady=(8,0))
+        ttk.Button(btn_frame, text="Cancel", command=self.quit).pack(side="right", padx=6)
+        ttk.Button(btn_frame, text="Login", command=self.attempt_login).pack(side="right", padx=6)
+
+    def attempt_login(self):
+        u = self.username_var.get().strip()
+        p = self.password_var.get().strip()
+        if u == ADMIN_USERNAME and p == ADMIN_PASSWORD:
+            # success: close login window and start app
+            self.destroy()
+            app = LostFoundApp()
+            app.mainloop()
+        else:
+            messagebox.showerror("Login Failed", "Incorrect username or password.")
+
+def show_login_window():
+    login = LoginWindow()
+    login.mainloop()
+
+# ---------- Run ----------
+if __name__ == "__main__":
+    show_login_window()

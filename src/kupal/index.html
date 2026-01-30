@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Coffee Shop</title>
+
+    <!-- Icons & Swiper -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- Header / Navbar -->
+<header>
+    <nav class="navbar section-content">
+        <a href="#" class="nav-logo">
+            <h2 class="logo-text">☕ Coffee</h2>
+        </a>
+
+        <ul class="nav-menu">
+            <button id="menu-close-button" class="fas fa-times" aria-label="Close menu"></button>
+
+            <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+            <li class="nav-item"><a href="#menu" class="nav-link">Menu</a></li>
+            <li class="nav-item"><a href="#testimonials" class="nav-link">Testimonials</a></li>
+            <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+
+        <button id="menu-open-button" class="fas fa-bars" aria-label="Open menu"></button>
+    </nav>
+</header>
+
+<main>
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="section-content">
+        <div class="hero-details">
+            <h2 class="title">Best Coffee</h2>
+            <h3 class="subtitle">Make your day great with our special coffee!</h3>
+            <p class="description">
+                Welcome to our coffee paradise, where every bean tells a story and every cup sparks joy.
+            </p>
+
+            <div class="buttons">
+                <a href="#" class="button">Order Now</a>
+                <a href="#contact" class="button contact-us">Contact Us</a>
+            </div>
+        </div>
+
+        <div class="hero-image-wrapper">
+            <img src="https://png.pngtree.com/png-clipart/20241118/original/pngtree-coffee-splash-in-white-cup-png-image_17192004.png"
+                 alt="Coffee Cup"
+                 class="hero-image">
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about-section" id="about">
+    <div class="section-content">
+        <div class="about-image-wrapper">
+            <img src="https://i.ytimg.com/vi/DyJTVkRP1vY/maxresdefault.jpg"
+                 alt="About Coffee"
+                 class="about-image">
+        </div>
+
+        <div class="about-details">
+            <h2 class="section-title">About Us</h2>
+            <p class="text">
+                In Our Coffee Shop we believe that great coffee brings people together. Every cup is carefully crafted using premium beans 
+                sourced from trusted farmers, ensuring rich flavor and fresh aroma in every sip. Whether you're starting your day, 
+                meeting friends, or taking a well-deserved break, our warm and cozy space is designed to make you feel at home. We are 
+                passionate about quality, friendly service, and creating moments worth remembering. From classic brews to creative blends, 
+                our goal is to serve happiness—one cup at a time.
+            </p>
+
+            <div class="social-link-list">
+                <a href="#" class="social-link"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Menu Section -->
+<section class="menu-section" id="menu">
+    <h2 class="section-title">Our Menu</h2>
+
+    <div class="section-content">
+        <ul class="menu-list">
+
+            <li class="menu-item">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/051/964/118/small/cup-of-hot-coffee-latte-with-heart-shape-isolated-on-transparent-background-png.png"
+                     class="menu-image" alt="Hot Beverages">
+                <h3 class="name">Hot Beverages</h3>
+                <p class="text">Wide range of steaming hot coffee.</p>
+            </li>
+
+            <li class="menu-item">
+                <img src="https://png.pngtree.com/png-clipart/20250106/original/pngtree-cold-iced-coffee-beverage-in-a-clear-glass-png-image_19967389.png"
+                     class="menu-image" alt="Cold Beverages">
+                <h3 class="name">Cold Beverages</h3>
+                <p class="text">Creamy and frothy cold coffee.</p>
+            </li>
+
+            <li class="menu-item">
+                <img src="https://img.pikbest.com/png-images/20250106/refreshing-colorful-cocktails-with-fruits-and-ice-isolated-on-transparent-background_11346769.png!w700wp"
+                     class="menu-image" alt="Refreshment">
+                <h3 class="name">Refreshment</h3>
+                <p class="text">Fruity icy refreshers.</p>
+            </li>
+
+            <li class="menu-item">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/062/810/117/small/cheeseburger-beverage-fries-with-ketchup-cut-out-transparent-png.png"
+                     class="menu-image" alt="Special Combos">
+                <h3 class="name">Special Combos</h3>
+                <p class="text">Perfect food & drink combos.</p>
+            </li>
+
+            <li class="menu-item">
+                <img src="https://png.pngtree.com/png-clipart/20240518/original/pngtree-bakery-shop-desserts-sweet-cakes-and-cookies-png-image_15121469.png"
+                     class="menu-image" alt="Dessert">
+                <h3 class="name">Dessert</h3>
+                <p class="text">Sweet treats & desserts.</p>
+            </li>
+
+            <li class="menu-item">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/060/593/710/small/burger-french-fries-and-ketchup-on-black-background-cut-out-transparent-png.png"
+                     class="menu-image" alt="Burger and Fries">
+                <h3 class="name">Burger & Fries</h3>
+                <p class="text">Quick bites for hunger.</p>
+            </li>
+
+        </ul>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials-section" id="testimonials">
+    <h2 class="section-title">Customer Reviews</h2>
+
+    <div class="section-content">
+        <div class="slider-wrapper swiper">
+            <ul class="testimonials-list swiper-wrapper">
+
+                <li class="testimonial swiper-slide">
+                    <img src="https://www.pngall.com/wp-content/uploads/2016/04/Happy-Person-Free-Download-PNG.png" class="user-image" alt="User">
+                    <h3 class="name">Deven</h3>
+                    <i class="feedback">"Loved the French roast. Perfectly balanced."</i>
+                </li>
+
+                <li class="testimonial swiper-slide">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfPWOlAuhKyULaKS8h79ORRDh_J4BGFxsN6g&s" class="user-image" alt="User">
+                    <h3 class="name">James</h3>
+                    <i class="feedback">"Great espresso blend! Smooth and bold flavor."</i>
+                </li>
+
+                <li class="testimonial swiper-slide">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/047/241/865/small/businessman-in-microphone-isolated-on-transparent-background-free-png.png" class="user-image" alt="User">
+                    <h3 class="name">Nica</h3>
+                    <i class="feedback">"Fantastic mocha flavor. Fresh and aromatic."</i>
+                </li>
+
+                <li class="testimonial swiper-slide">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1NGWOvTd3-Kr4O9rIqtLlrzvEVThbkF9i_g&s" class="user-image" alt="User">
+                    <h3 class="name">Samuel</h3>
+                    <i class="feedback">"Excellent quality! Fresh beans and quick delivery. Highly recommend."</i>
+                </li>
+
+                <li class="testimonial swiper-slide">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/057/095/073/small/elegant-young-businessman-in-a-suit-png.png" class="user-image" alt="User">
+                    <h3 class="name">Christian</h3>
+                    <i class="feedback">"Best decaf I've tried! Smooth and flavorful. Arrived promptly."</i>
+                </li>
+
+            </ul>
+
+            <div class="swiper-pagination"></div>
+            <div class="swiper-slide-button swiper-button-prev"></div>
+            <div class="swiper-slide-button swiper-button-next"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section" id="contact">
+    <h2 class="section-title">Contact Us</h2>
+
+    <div class="section-content">
+
+        <ul class="contact-info-list">
+            <li class="contact-info"><i class="fa-solid fa-location-crosshairs"></i><p>Dagupan City</p></li>
+            <li class="contact-info"><i class="fa-regular fa-envelope"></i><p>info@coffeeshopwebsite.com</p></li>
+            <li class="contact-info"><i class="fa-solid fa-phone"></i><p>(+63) 910 564 7456</p></li>
+            <li class="contact-info"><i class="fa-regular fa-clock"></i><p>Monday - Friday: 9:00 AM - 5:00 PM</p></li>
+            <li class="contact-info"><i class="fa-regular fa-clock"></i><p>Saturday: 10:00 AM - 4:00 PM</p></li>
+            <li class="contact-info"><i class="fa-regular fa-clock"></i><p>Sunday: Closed</p></li>
+            <li class="contact-info"><i class="fa-solid fa-globe"></i><p>www.coffeeshopwebsite.com</p></li>
+        </ul>
+
+        <div class="contact-form">
+            <form action="#">
+                <input type="text" placeholder="Your name" class="form-input" required>
+                <input type="email" placeholder="Your email" class="form-input" required>
+                <textarea placeholder="Your message" class="form-input" required></textarea>
+                <button class="submit-button">Submit</button>
+            </form>
+        </div>
+
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer-section">
+    <div class="section-content">
+        <p class="copyright-text">&copy; 2024 Coffee Shop</p>
+
+        <div class="social-link-list">
+            <a href="#" class="social-link"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+
+        <p class="policy-text">
+            <a href="#" class="policy-link">Privacy policy</a>
+            <span class="separator">•</span>
+            <a href="#" class="policy-link">Refund policy</a>
+        </p>
+    </div>
+</footer>
+
+</main>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>

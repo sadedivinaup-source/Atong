@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Shop</title>
+    <meta name="description" content="Start your day with our premium coffee made with love. Discover our popular coffee products and rich history.">
+    <meta name="keywords" content="coffee, coffee shop, americano, premium coffee, coffee beans">
+    
+    <!-- Link to CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Box Icons CSS (Better performance than JS) -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    <!-- Favicon (optional) -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header>
+        <a href="#home" class="logo" aria-label="Coffee Shop Home">
+            <img src="image.l.webp" alt="Coffee Shop Logo">
+        </a>
+        
+        <!-- Mobile Menu Icon -->
+        <i class='bx bx-menu' id="menu-icon" aria-label="Toggle Menu"></i>
+        
+        <!-- Navigation Links -->
+        <nav>
+            <ul class="navbar">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#customers">Customers</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        
+        <!-- Header Icons -->
+        <div class="header-icon">
+            <i class='bx bx-cart' aria-label="Shopping Cart" role="button" tabindex="0"></i>
+            <i class='bx bx-search' id="search-icon" aria-label="Search" role="button" tabindex="0"></i>
+        </div>  
+        
+        <!-- Search Box -->
+        <div class="search-box">
+            <input type="search" 
+                   name="search" 
+                   id="search-input" 
+                   placeholder="Search coffee products..." 
+                   aria-label="Search products">
+        </div>
+    </header>
+
+    <!-- Home Section -->
+    <section class="home" id="home">
+        <div class="home-text">
+            <h1>Start Your Day<br>With Our Coffee Shop</h1>
+            <p>Our Coffee is Made with Love and Premium Beans</p>
+            <a href="#products" class="btn" role="button">Shop Now</a>
+        </div>
+        <div class="home-img">
+            <img src="coffee.png" alt="Premium coffee cup with steam rising">
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-img">
+            <img src="abouts.image.jpg" alt="Coffee shop interior with warm ambiance">
+        </div>
+        <div class="about-text">
+            <h2>Our History</h2>
+            <p>Our coffee shop has been serving the community with premium, freshly roasted coffee beans sourced from the finest plantations around the world. We believe that every cup tells a story of passion, tradition, and excellence.</p>
+            <p>Our master roasters carefully select each bean, ensuring that every sip delivers the perfect balance of flavor, aroma, and quality. From the first morning brew to the last evening cup, we're committed to making your coffee experience extraordinary.</p>
+            <p>Join us on a journey through coffee culture, where every cup is crafted with dedication and served with a smile.</p>
+            <a href="#contact" class="btn" role="button">Learn More</a>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="heading">
+            <h2>Our Popular Products</h2>
+        </div>
+        
+        <!-- Products Container -->
+        <div class="products-container">
+            <article class="box">
+                <img src="image.p1.png" alt="Americano Coffee">
+                <h3>Americano</h3>
+                <div class="content">
+                    <span>₱130</span>
+                    <a href="#" class="add-to-cart" role="button">Add to Cart</a>
+                </div>
+            </article>
+            
+            <article class="box">
+                <img src="image.p2.png" alt="Espresso Coffee">
+                <h3>Espresso</h3>
+                <div class="content">
+                    <span>₱140</span>
+                    <a href="#" class="add-to-cart" role="button">Add to Cart</a>
+                </div>
+            </article>
+            
+            <article class="box">
+                <img src="image.p3.png" alt="Cappuccino Coffee">
+                <h3>Cappuccino</h3>
+                <div class="content">
+                    <span>₱150</span>
+                    <a href="#" class="add-to-cart" role="button">Add to Cart</a>
+                </div>
+            </article>
+            
+            <article class="box">
+                <img src="image.p4.jpg" alt="Latte Coffee">
+                <h3>Smooth Latte</h3>
+                <div class="content">
+                    <span>₱160</span>
+                    <a href="#" class="add-to-cart" role="button">Add to Cart</a>
+                </div>
+            </article>
+            
+            <article class="box">
+                <img src="image.p5.png" alt="Chocolate Mocha">
+                <h3>Chocolate Mocha</h3>
+                <div class="content">
+                    <span>₱170</span>
+                    <a href="#" class="add-to-cart" role="button">Add to Cart</a>
+                </div>
+            </article>
+            
+            <article class="box">
+                <img src="image.p6.webp" alt="Caramel Macchiato">
+                <h3>Caramel Macchiato</h3>
+                <div class="content">
+                    <span>₱180</span>
+                    <a href="#" class="add-to-cart" role="button">Add to Cart</a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Customer Reviews Section -->
+    <section class="customers" id="customers">
+        <div class="heading">
+            <h2>What Our Customers Say</h2>
+        </div>
+        
+        <div class="reviews-container">
+            <article class="review-box">
+                <div class="stars">
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                </div>
+                <p>"The best coffee in town! Their Americano is perfectly balanced and the atmosphere is so welcoming."</p>
+                <div class="customer-info">
+                    <img src="c1.image.png" alt="Christian">
+                    <h4>Christian</h4>
+                </div>
+            </article>
+            
+            <article class="review-box">
+                <div class="stars">
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                </div>
+                <p>"I'm a regular here! The cappuccino is amazing and the staff always remembers my order."</p>
+                <div class="customer-info">
+                    <img src="c2.image.png" alt="Samuel">
+                    <h4>Samuel</h4>
+                </div>
+            </article>
+            
+            <article class="review-box">
+                <div class="stars">
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bx-star'></i>
+                </div>
+                <p>"Great place for meetings and work. Fast WiFi and excellent coffee make it perfect!"</p>
+                <div class="customer-info">
+                    <img src="c3.image.webp" alt="Deven">
+                    <h4>Deven</h4>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="heading">
+            <h2>Visit Us Today</h2>
+        </div>
+        
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="info-box">
+                    <i class='bx bx-map'></i>
+                    <h3>Location</h3>
+                    <p> Daguapan City</p>
+                </div>
+                
+                <div class="info-box">
+                    <i class='bx bx-time'></i>
+                    <h3>Hours</h3>
+                    <p>Mon-Fri: 6:00 AM - 9:00 PM<br>Weekend: 7:00 AM - 10:00 PM</p>
+                </div>
+                
+                <div class="info-box">
+                    <i class='bx bx-phone'></i>
+                    <h3>Contact</h3>
+                    <p>Phone: (+63) 910-564-7456<br>Email: example@email.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Coffee Shop</h3>
+                <p>Serving premium coffee with love.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class='bx bxl-facebook'></i></a>
+                    <a href="#" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
+                    <a href="#" aria-label="Twitter"><i class='bx bxl-twitter'></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#customers">Reviews</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <p><i class='bx bx-map'></i> Dagupan City</p>
+                <p><i class='bx bx-phone'></i> (+63) 910-564-7456</p>
+                <p><i class='bx bx-envelope'></i> example@email.com</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; Coffee Shop. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,314 @@
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ================= BODY ================= */
+body {
+    min-height: 100vh;
+    background: url('go.image.jpg') no-repeat center / cover;
+}
+
+/* ================= HEADER / NAVBAR ================= */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.navigation {
+    width: 100%;
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    user-select: none;
+}
+
+/* NAV LINKS */
+.navigation ul {
+    float: right;
+    list-style: none;
+}
+
+.navigation ul li {
+    display: inline-block;
+    margin: 0 8px;
+    line-height: 40px;
+}
+
+.navigation ul li a {
+    position: relative;
+    color: #fff;
+    font-size: 1.1em;
+    text-decoration: none;
+    padding: 6px 12px;
+    text-transform: uppercase;
+}
+
+.navigation ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, #fff, #f3f3f3);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform .4s ease;
+    border-radius: 5px;
+}
+
+.navigation ul li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* LOGIN BUTTON */
+.btnlogin-popup {
+    width: 120px;
+    height: 45px;
+    border: 2px solid #fff;
+    background: transparent;
+    color: #fff;
+    font-size: 1em;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btnlogin-popup:hover {
+    background: #05190A;
+}
+
+/* ================= MOBILE NAV ================= */
+.check_btn {
+    font-size: 28px;
+    color: #fff;
+    cursor: pointer;
+    display: none;
+}
+
+#check {
+    display: none;
+}
+
+@media (max-width: 858px) {
+    header {
+        padding: 20px 40px;
+    }
+
+    .check_btn {
+        display: block;
+    }
+
+    .navigation ul {
+        position: fixed;
+        width: 60%;
+        height: 70vh;
+        background: #2c5038;
+        top: 90px;
+        left: -100%;
+        padding-top: 30px;
+        transition: .5s;
+        border-radius: 10px;
+        box-shadow: 0 0 30px rgba(0,0,0,.5);
+    }
+
+    .navigation ul li {
+        display: block;
+        margin: 30px 0;
+        text-align: center;
+    }
+
+    #check:checked ~ ul {
+        left: 20px;
+    }
+}
+
+/* ================= POPUP ================= */
+.cover-box {
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 400px;
+    height: 440px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid #c9c8c8;
+    border-radius: 20px;
+    backdrop-filter: blur(25px);
+    box-shadow: 0 0 30px rgba(0,0,0,.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: .5s ease;
+    z-index: 200;
+}
+
+.cover-box.active-popup {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.cover-box.active {
+    height: 520px;
+}
+
+/* GLOW */
+.cover-box:hover {
+    animation: borderGlow 1s infinite alternate;
+}
+
+@keyframes borderGlow {
+    from {
+        box-shadow: 0 0 20px rgba(255,255,255,.3);
+    }
+    to {
+        box-shadow: 0 0 35px rgba(255,255,255,1);
+    }
+}
+
+/* CLOSE ICON */
+.icon-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.8em;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* ================= FORMS ================= */
+.form-box-login,
+.form-box-register {
+    width: 100%;
+    padding: 40px;
+    position: absolute;
+    transition: transform .5s ease;
+    color: #fff;
+}
+
+.form-box-login {
+    transform: translateX(0);
+}
+
+.cover-box.active .form-box-login {
+    transform: translateX(-400px);
+}
+
+.form-box-register {
+    transform: translateX(400px);
+}
+
+.cover-box.active .form-box-register {
+    transform: translateX(0);
+}
+
+/* FORM TEXT */
+.form-box-login h2,
+.form-box-register h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* INPUT BOX */
+.input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+    border-bottom: 2px solid #fff;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 1em;
+    padding: 0 35px 0 5px;
+}
+
+.input-box label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    color: #fff;
+    font-size: 1em;
+    transform: translateY(-50%);
+    pointer-events: none;
+    transition: .3s;
+}
+
+.input-box input:focus ~ label,
+.input-box input:not(:placeholder-shown) ~ label {
+    top: -8px;
+    font-size: .85em;
+}
+
+.input-box .icon {
+    position: absolute;
+    right: 10px;
+    font-size: 1.2em;
+}
+
+/* REMEMBER */
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    font-size: .9em;
+    margin-bottom: 20px;
+}
+
+.remember-forgot a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* BUTTON */
+.btn {
+    width: 100%;
+    height: 45px;
+    background: #05190A;
+    border: none;
+    color: #fff;
+    font-size: 1em;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* REGISTER LINKS */
+.login-register {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.login-register a {
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* ================= MOBILE POPUP ================= */
+@media (max-width: 480px) {
+    .cover-box {
+        width: 90%;
+    }
+}

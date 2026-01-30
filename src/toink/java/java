@@ -1,0 +1,21 @@
+public class SongLyricPlayer {
+    public static void main(String[]args){
+        String[] songLyrics = {
+            "I can't lose when I'm with you",
+            "How can I snooze and miss the moment",
+            "Nobody do body like you do",
+            "I can't lose when I'm with you",
+            "How can I snooze and miss the moment",
+            "You just too important",
+            "nobody do body like you do, you dooo"
+        };
+        for (String line : songLyrics) {
+            System.out.println(line);
+            try {
+                Thread.sleep(3550);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
